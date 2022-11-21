@@ -1,5 +1,7 @@
 package com.example.myhero;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,23 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ClassViewHolde
                 .load(hero.getPhoto())
                 .centerCrop()
                 .into(holder.ivPhoto);
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                String xName, xAbout, xPhoto;
+                xName = hero.getName();
+                xAbout = hero.getAbout();
+                xPhoto = hero.getPhoto();
+                //Log.d("CHECKANDRECHECK", xName + " | " + xAbout + " | " + xPhoto);
+                Intent send = new Intent(holder.itemView.getContext(), DetailActivity.class);
+                send.putExtra("xName", xName);
+                send.putExtra("xAbout", xAbout);
+                send.putExtra("xPhoto", xPhoto);
+                holder.itemView.getContext().startActivity(send);
+            }
+        });
     }
     @Override
     public int getItemCount()
