@@ -12,34 +12,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
-public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ClassViewHolder>
+public class AdapterGrid extends RecyclerView.Adapter<com.example.myhero.AdapterGrid.ClassViewHolder>
 {
     private ArrayList<ModelHero> dataHero;
     private Context ctx;
-    public AdapterCard(ArrayList<ModelHero> dataHero, Context ctx)
+    public AdapterGrid(ArrayList<ModelHero> dataHero, Context ctx)
     {
         this.dataHero = dataHero;
         this.ctx = ctx;
     }
-
     @NonNull
     @Override
     public ClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View varView = LayoutInflater.from(ctx).inflate(R.layout.item_card, parent, false);
+        View varView = LayoutInflater.from(ctx).inflate(R.layout.item_grid, parent, false);
         return new ClassViewHolder(varView);
     }
     @Override
-    public void onBindViewHolder(@NonNull ClassViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull com.example.myhero.AdapterGrid.ClassViewHolder holder, int position)
     {
         ModelHero hero = dataHero.get(position);
-        holder.tvName.setText(hero.getName());
-        holder.tvAbout.setText(hero.getAbout());
         Glide
                 .with(ctx)
                 .load(hero.getPhoto())
                 .centerCrop()
-                .into(holder.ivPhoto);
+                .into(holder.ivGrid);
         holder.itemView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -50,7 +47,7 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ClassViewHolde
                 xAbout = hero.getAbout();
                 xPhoto = hero.getPhoto();
                 //Log.d("CHECKANDRECHECK", xName + " | " + xAbout + " | " + xPhoto);
-                Intent send = new Intent(holder.itemView.getContext(), DetailActivity.class);
+                Intent send = new Intent(ctx, DetailActivity.class);
                 send.putExtra("xName", xName);
                 send.putExtra("xAbout", xAbout);
                 send.putExtra("xPhoto", xPhoto);
@@ -65,12 +62,12 @@ public class AdapterCard extends RecyclerView.Adapter<AdapterCard.ClassViewHolde
     }
     public class ClassViewHolder extends RecyclerView.ViewHolder
     {
-        ImageView ivPhoto;
+        ImageView ivGrid;
         TextView tvName, tvAbout;
         public ClassViewHolder(@NonNull View itemView)
         {
             super(itemView);
-            ivPhoto = itemView.findViewById(R.id.iv_photo);
+            ivGrid = itemView.findViewById(R.id.iv_grid);
             tvName = itemView.findViewById(R.id.tv_name);
             tvAbout = itemView.findViewById(R.id.tv_about);
         }
